@@ -1,6 +1,6 @@
 # chrono's camera
 an assist tool for making receipt factor picture
 
-supported os: windows 10 build 17134 or older
+supported os: windows 10 build 17134 or newer
 
 windows 10 user may need to install Webview2 runtime.
