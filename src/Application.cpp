@@ -447,6 +447,15 @@ void Application::ExitCaptureMode() {
     if (!captureModeActive_) {
         return;
     }
+
+    const auto finalPath = captureSession_.CaptureNext();
+    if (!finalPath.empty()) {
+        currentCapturedFiles_.push_back(finalPath);
+        std::wstring text = L"Captured final frame ";
+        text += std::to_wstring(currentCapturedFiles_.size());
+        UpdateStatus(text);
+    }
+
     hotkeyManager_.SetCaptureMode(false);
     captureModeActive_ = false;
 
