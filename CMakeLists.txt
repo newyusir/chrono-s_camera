@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.20)
-project(receipt_factor_auto LANGUAGES CXX)
+project(chronos_camera LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(receipt_factor_auto WIN32
+add_executable(chronos_camera WIN32
     src/main.cpp
     src/Application.cpp
     src/CaptureSession.cpp
@@ -18,7 +18,7 @@ add_executable(receipt_factor_auto WIN32
     resources/app.rc
 )
 
-target_include_directories(receipt_factor_auto PRIVATE include resources)
+target_include_directories(chronos_camera PRIVATE include resources)
 
 find_package(Microsoft.Web.WebView2 CONFIG QUIET)
 
@@ -44,13 +44,13 @@ if(NOT Microsoft.Web.WebView2_FOUND)
         message(FATAL_ERROR "Could not find WebView2LoaderStatic.lib under ${WEBVIEW2_SDK_DIR}/build/native/lib/${_webview2_arch}.")
     endif()
 
-    target_include_directories(receipt_factor_auto PRIVATE "${_webview2_include}")
-    target_link_libraries(receipt_factor_auto PRIVATE "${_webview2_lib}")
+    target_include_directories(chronos_camera PRIVATE "${_webview2_include}")
+    target_link_libraries(chronos_camera PRIVATE "${_webview2_lib}")
 else()
-    target_link_libraries(receipt_factor_auto PRIVATE Microsoft.Web.WebView2::WebView2)
+    target_link_libraries(chronos_camera PRIVATE Microsoft.Web.WebView2::WebView2)
 endif()
 
-target_link_libraries(receipt_factor_auto
+target_link_libraries(chronos_camera
     PRIVATE
         windowscodecs
         shlwapi
@@ -62,6 +62,6 @@ target_link_libraries(receipt_factor_auto
 )
 
 if (MSVC)
-    target_compile_definitions(receipt_factor_auto PRIVATE UNICODE _UNICODE)
+    target_compile_definitions(chronos_camera PRIVATE UNICODE _UNICODE)
 endif()
 

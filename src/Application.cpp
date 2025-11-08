@@ -337,7 +337,7 @@ void Application::OnCreate() {
     HMENU menuBar = CreateMenu();
     HMENU fileMenu = CreatePopupMenu();
     AppendMenuW(fileMenu, MF_STRING, kMenuOpenOutput, L"Open capture folder");
-    AppendMenuW(fileMenu, MF_STRING, kMenuClearSessions, L"Clear session folder");
+    AppendMenuW(fileMenu, MF_STRING, kMenuClearSessions, L"Clear capture folder");
     AppendMenuW(fileMenu, MF_STRING, kMenuSettings, L"Hotkey settings");
     AppendMenuW(menuBar, MF_POPUP, reinterpret_cast<UINT_PTR>(fileMenu), L"Actions");
     SetMenu(hwnd_, menuBar);
@@ -527,7 +527,7 @@ void Application::StartProcessing(const std::vector<std::wstring>& capturedFiles
     if (clipboardOk) {
         status = L"Images ready (";
         status += std::to_wstring(dataUrls.size());
-        status += dataUrls.size() == 1 ? L" image). Use the page's clipboard import once." : L" images). Use the page's clipboard import once.";
+        status += dataUrls.size() == 1 ? L" image). click クリップボードから貼り付け to import. (or you can just ctrl + V on the page.)" : L" images). click クリップボードから貼り付け to import. (or you can just ctrl + V on the page.)";
     } else {
         status = L"Images ready for the embedded page, but clipboard copy failed.";
         MessageBoxW(hwnd_, status.c_str(), L"Clipboard error", MB_OK | MB_ICONERROR);
@@ -589,9 +589,9 @@ void Application::EnsureUIFont() {
 std::wstring Application::BuildIdleStatus() const {
     const std::wstring hotkeyText = hotkey::Describe(config_.hotkey);
     if (hotkeyText.empty()) {
-        return L"Idle. Press the configured hotkey to start capturing.";
+        return L"Press the configured hotkey to start capturing.";
     }
-    return L"Idle. Press " + hotkeyText + L" to start capturing.";
+    return L"Press " + hotkeyText + L" to start capturing.";
 }
 
 void Application::LoadWindowIcon() {
@@ -669,7 +669,7 @@ void Application::ClearSessionDirectory() {
         return;
     }
 
-    const int choice = MessageBoxW(hwnd_, L"Delete all session captures? This cannot be undone.", L"Clear session folder", MB_ICONQUESTION | MB_YESNO);
+    const int choice = MessageBoxW(hwnd_, L"Delete all session captures? This cannot be undone.", L"Clear capture folder", MB_ICONQUESTION | MB_YESNO);
     if (choice != IDYES) {
         return;
     }
